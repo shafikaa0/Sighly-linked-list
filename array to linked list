@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;           // Data part
+    struct node *next;  // Address part
+};
+
+int main()
+{
+    struct node *header, *newNode, *temp;
+    int data, i, n, a[100];
+
+    printf("Enter the total number of data: ");
+    scanf("%d", &n);
+
+    // Array কে n টা এলিমেন্ট দিয়ে ভরা হচ্ছে
+    for(i = 0; i < n; i++)
+    {
+        printf("Enter element %d: ", i + 1);
+        scanf("%d", &a[i]);
+    }
+
+    /* প্রথম নোড (head node) তৈরি, a[0] দিয়ে */
+    newNode = (struct node *)malloc(sizeof(struct node));
+
+    if(newNode == NULL)
+    {
+        printf("Unable to allocate memory.");
+    }
+    else
+    {
+        newNode->data = a[0];   // প্রথম ডেটা a[0] থেকে
+        newNode->next = NULL;
+        header = newNode;       // header প্রথম নোডকে পয়েন্ট করে
+        temp = header;          // temp ও আপাতত প্রথম নোডেই
+
+        /* বাকি নোডগুলো a[1] থেকে a[n-1] পর্যন্ত */
+        for(i = 1; i < n; i++)
+        {
+            newNode = (struct node *)malloc(sizeof(struct node));
+
+            if(newNode == NULL)
+            {
+                printf("Unable to allocate memory.");
+                break;
+            }
+            else
+            {
+                newNode->data = a[i];
+                newNode->next = NULL;
+
+                temp->next = newNode;  // আগের শেষ নোডের সাথে লিংক
+                temp = temp->next;      // temp কে নতুন শেষ নোডে সরানো
+            }
+        }
+    }
+
+    /* লিস্ট প্রিন্ট করে দেখা যাক ঠিকমতো কপি হলো কিনা */
+    printf("\nLinked list: ");
+    temp = header;
+    while(temp != NULL)
+    {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+
+    return 0;
+}
