@@ -1,0 +1,152 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+
+} *head = NULL;
+
+void createlist(int n);
+void insertNodeAtMiddle(int data, int position);
+void traverseList(struct node *head);
+
+
+int main()
+{
+    int n, data, position;
+
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    createlist(n);
+
+    printf("\nEnter data to insert: ");
+    scanf("%d", &data);
+
+    printf("Enter position: ");
+    scanf("%d", &position);
+
+    insertNodeAtMiddle(data, position);
+
+    printf("\nLinked List after insertion:\n");
+    traverseList(head);
+
+    return 0;
+}
+
+
+/* Create the linked list */
+
+void createlist(int n)
+{
+    struct node *newnode, *temp;
+    int data;
+
+    newnode = (struct node*)malloc(sizeof(struct node));
+
+    if(newnode == NULL)
+    {
+        printf("Unable to allocate memory.\n");
+    }
+    else
+    {
+        printf("Enter data for node 1: ");
+        scanf("%d", &data);
+
+        newnode->data = data;
+        newnode->next = NULL;
+
+        head = newnode;
+        temp = newnode;
+
+        for(int i = 2; i <= n; i++)
+        {
+            newnode = (struct node*)malloc(sizeof(struct node));
+
+            if(newnode == NULL)
+            {
+                printf("Unable to allocate memory.\n");
+                break;
+            }
+
+            printf("Enter data for node %d: ", i);
+            scanf("%d", &data);
+
+            newnode->data = data;
+            newnode->next = NULL;
+
+            temp->next = newnode;
+            temp = temp->next;
+        }
+    }
+}
+
+
+/* Insert a new node at any position */
+
+void insertNodeAtMiddle(int data, int position)
+{
+    int i;
+    struct node *newNode, *temp;
+
+    newNode = (struct node*)malloc(sizeof(struct node));
+
+    if(newNode == NULL)
+    {
+        printf("Unable to allocate memory.\n");
+    }
+    else
+    {
+        newNode->data = data;
+        newNode->next = NULL;
+
+        temp = head;
+
+        for(i = 2; i <= position - 1; i++)
+        {
+            temp = temp->next;
+
+            if(temp == NULL)
+                break;
+        }
+
+        if(temp != NULL)
+        {
+            newNode->next = temp->next;
+
+            temp->next = newNode;
+
+            printf("DATA INSERTED SUCCESSFULLY\n");
+        }
+        else
+        {
+            printf("UNABLE TO INSERT DATA AT THE GIVEN POSITION\n");
+        }
+    }
+}
+
+
+/* Traverse the linked list */
+
+void traverseList(struct node *head)
+{
+    struct node *temp;
+
+    if(head == NULL)
+    {
+        printf("List is empty.\n");
+    }
+    else
+    {
+        temp = head;
+
+        while(temp != NULL)
+        {
+            printf("Data = %d\n", temp->data);
+
+            temp = temp->next;
+        }
+    }
+}
