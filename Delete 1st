@@ -1,0 +1,133 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+
+} *header;
+
+void createlist(int n);
+void deleteFirstNode();
+void traverse(struct node *header);
+
+
+int main()
+{
+    int n;
+
+    printf("enter the num of nodes: ");
+    scanf("%d", &n);
+
+    createlist(n);
+
+    printf("\nOriginal Linked List:\n");
+    traverse(header);
+
+    deleteFirstNode();
+
+    printf("\nLinked List after deletion:\n");
+    traverse(header);
+
+    return 0;
+}
+
+
+/* Create the linked list */
+
+void createlist(int n)
+{
+    int data;
+    struct node *newnode, *temp;
+
+    newnode = (struct node*)malloc(sizeof(struct node));
+
+    if(newnode == NULL)
+    {
+        printf("Unable to allocate memory\n");
+    }
+    else
+    {
+        printf("enter data for node 1: ");
+        scanf("%d", &data);
+
+        newnode->data = data;
+        newnode->next = NULL;
+
+        header = newnode;
+        temp = newnode;
+
+        for(int i = 2; i <= n; i++)
+        {
+            newnode = (struct node*)malloc(sizeof(struct node));
+
+            if(newnode == NULL)
+            {
+                printf("Unable to allocate memory\n");
+                break;
+            }
+            else
+            {
+                printf("enter data for node %d: ", i);
+                scanf("%d", &data);
+
+                newnode->data = data;
+                newnode->next = NULL;
+
+                temp->next = newnode;
+                temp = temp->next;
+            }
+        }
+    }
+}
+
+
+/* Delete the first node */
+
+void deleteFirstNode()
+{
+    struct node *toDelete;
+
+    if(header == NULL)
+    {
+        printf("List is already empty.");
+    }
+    else
+    {
+        toDelete = header;
+
+        header = header->next;
+
+        printf("\nData deleted = %d\n", toDelete->data);
+
+        /* Clears the memory occupied by first node */
+        free(toDelete);
+
+        printf("SUCCESSFULLY DELETED FIRST NODE FROM LIST\n");
+    }
+}
+
+
+/* Traverse the linked list */
+
+void traverse(struct node *header)
+{
+    struct node *temp;
+
+    if(header == NULL)
+    {
+        printf("List is empty.\n");
+    }
+    else
+    {
+        temp = header;
+
+        while(temp != NULL)
+        {
+            printf("Data = %d\n", temp->data);
+
+            temp = temp->next;
+        }
+    }
+}
