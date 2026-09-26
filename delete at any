@@ -99,51 +99,29 @@ void deleteMiddleNode(int position)
 {
     int i;
     struct node *toDelete, *prevNode;
-
-    if(header == NULL)
-    {
+    if(header == NULL) {
         printf("List is already empty.");
-    }
-    else if(position < 1)
-    {
-        printf("Invalid position unable to delete.");
-    }
-    else
-    {
+    } else if(position < 1)
+    {     printf("Invalid position unable to delete.");
+    }else {
         toDelete = header;
         prevNode = header;
-
-        for(i = 2; i <= position; i++)
-        {
+        for(i = 2; i <= position; i++) {
             prevNode = toDelete;
             toDelete = toDelete->next;
-
             if(toDelete == NULL)
-                break;
-        }
-
-        if(toDelete != NULL)
-        {
-            if(toDelete == header)
-            {
-                header = header->next;
-            }
-            else
+                break; }
+ if(toDelete != NULL)
+        { if(toDelete == header)
+            {   header = header->next;
+            } else
             {
                 prevNode->next = toDelete->next;
-            }
-
-            toDelete->next = NULL;
-
-            /* Deletes the node */
+            } toDelete->next = NULL;
             free(toDelete);
-
             printf("SUCCESSFULLY DELETED NODE FROM LIST\n");
-        }
-        else
-        {
-            printf("Invalid position unable to delete.");
-        }
+        } else{
+            printf("Invalid position unable to delete."); }
     }
 }
 
