@@ -95,39 +95,25 @@ void createlist(int n)
 void deleteLastNode()
 {
     struct node *toDelete, *secondLastNode;
-
     if(header == NULL)
     {
-        printf("List is already empty.");
-    }
-    else
-    {
+        printf("List is already empty.");}
+    else{
         toDelete = header;
         secondLastNode = header;
-
-        while(toDelete->next != NULL)
-        {
+        while(toDelete->next != NULL){
             secondLastNode = toDelete;
             toDelete = toDelete->next;
         }
-
         if(toDelete == header)
-        {
-            header = NULL;
-        }
-        else
-        {
+        {    header = NULL; }
+        else{
             secondLastNode->next = NULL;
         }
-
         printf("\nData deleted = %d\n", toDelete->data);
-
-        /* Delete the last node */
         free(toDelete);
-
         printf("SUCCESSFULLY DELETED LAST NODE FROM LIST\n");
-    }
-}
+    }}
 
 
 /* Traverse the linked list */
